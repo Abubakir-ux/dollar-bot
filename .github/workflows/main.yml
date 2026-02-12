@@ -1,0 +1,25 @@
+name: Valyuta Bot Avto-Update
+
+on:
+  schedule:
+    # 9:00, 13:00 va 20:00 (Toshkent vaqti)
+    - cron: '0 4,8,15 * * *'
+  workflow_dispatch: # Bu tugma qo'lda ham yurgizish uchun kerak
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodni yuklab olish
+        uses: actions/checkout@v3
+
+      - name: Pythonni sozlash
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Kutubxonalarni o'rnatish
+        run: pip install -r requirements.txt
+
+      - name: Botni ishga tushirish
+        run: python main.py
